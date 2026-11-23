@@ -1,0 +1,100 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="520" viewBox="0 0 1200 520" role="img" aria-labelledby="title description">
+  <title id="title">Homework 4 retrieval pipeline</title>
+  <desc id="description">HTML tables and sections become source-preserving chunks with metadata and a lexical BM25 index. Questions are parsed, routed by metadata, reranked by intent and qualifiers, and allocated evidence per company. An evidence check returns no chunks for unsupported questions, or at most five original chunks to the fixed DeepSeek generator.</desc>
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#60758a"/></marker>
+    <marker id="amber-arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M 0 0 L 10 5 L 0 10 z" fill="#b36c15"/></marker>
+    <style>
+      text{font-family:Arial,Helvetica,sans-serif;fill:#18334b}
+      .title{font-size:22px;font-weight:700}
+      .label{font-size:15px;font-weight:700}
+      .detail{font-size:13px;fill:#435d73}
+      .small{font-size:12px;fill:#60758a}
+      .flow{fill:none;stroke:#60758a;stroke-width:2;marker-end:url(#arrow)}
+      .box{fill:#ffffff;stroke:#c5d2df;stroke-width:1.5}
+      .core{fill:#edf8f5;stroke:#6db7a4;stroke-width:1.5}
+      .model{fill:#f1edfb;stroke:#a893d2;stroke-width:1.5}
+      .reject{fill:#fff5e5;stroke:#d1a15a;stroke-width:1.5}
+    </style>
+  </defs>
+  <rect width="1200" height="520" rx="18" fill="#f6f9fc"/>
+  <text x="28" y="33" class="title">Homework 4: retrieval before generation</text>
+  <text x="1172" y="31" text-anchor="end" class="small">Lexical retrieval · source-preserving evidence</text>
+
+  <!-- Index construction: all metadata comes from the document itself. -->
+  <rect x="28" y="66" width="145" height="100" rx="12" class="box"/>
+  <text x="100.5" y="103" text-anchor="middle" class="label">HTML corpus</text>
+  <text x="100.5" y="128" text-anchor="middle" class="detail">Reports and calls</text>
+  <text x="100.5" y="148" text-anchor="middle" class="detail">Original text + tables</text>
+
+  <path d="M 173 116 H 215" class="flow"/>
+  <rect x="217" y="66" width="300" height="100" rx="12" class="core"/>
+  <text x="367" y="91" text-anchor="middle" class="label">table_to_text + section chunks</text>
+  <text x="367" y="115" text-anchor="middle" class="detail">≤ 1,500 characters; complete table rows</text>
+  <text x="367" y="137" text-anchor="middle" class="detail">Metadata: company, source, year, type, broker</text>
+  <text x="367" y="155" text-anchor="middle" class="small">Captions, values and names preserved</text>
+
+  <path d="M 517 116 H 563" class="flow"/>
+  <rect x="565" y="66" width="190" height="100" rx="12" class="core"/>
+  <text x="660" y="103" text-anchor="middle" class="label">BM25 lexical index</text>
+  <text x="660" y="128" text-anchor="middle" class="detail">No embeddings</text>
+  <text x="660" y="148" text-anchor="middle" class="detail">Built from current corpus</text>
+  <path d="M 660 166 V 193 H 600 V 220" class="flow"/>
+  <text x="686" y="189" class="small">candidate chunks</text>
+
+  <!-- Question-dependent retrieval. -->
+  <rect x="28" y="222" width="145" height="105" rx="12" class="box"/>
+  <text x="100.5" y="269" text-anchor="middle" class="label">Question</text>
+  <text x="100.5" y="293" text-anchor="middle" class="detail">One or two companies</text>
+
+  <path d="M 173 274.5 H 215" class="flow"/>
+  <rect x="217" y="222" width="235" height="105" rx="12" class="core"/>
+  <text x="334.5" y="252" text-anchor="middle" class="label">parse_query</text>
+  <text x="334.5" y="278" text-anchor="middle" class="detail">Companies · question year · type</text>
+  <text x="334.5" y="302" text-anchor="middle" class="small">Keep unknown company names</text>
+
+  <path d="M 452 274.5 H 498" class="flow"/>
+  <rect x="500" y="222" width="200" height="105" rx="12" class="core"/>
+  <text x="600" y="252" text-anchor="middle" class="label">Metadata routing</text>
+  <text x="600" y="278" text-anchor="middle" class="detail">Company and document type</text>
+  <text x="600" y="302" text-anchor="middle" class="small">Match evidence-year coverage</text>
+
+  <path d="M 700 274.5 H 746" class="flow"/>
+  <rect x="748" y="222" width="205" height="105" rx="12" class="core"/>
+  <text x="850.5" y="246" text-anchor="middle" class="label">Intent + qualifier</text>
+  <text x="850.5" y="266" text-anchor="middle" class="label">reranking</text>
+  <text x="850.5" y="288" text-anchor="middle" class="detail">Metric, region, segment, role</text>
+  <text x="850.5" y="309" text-anchor="middle" class="small">Prefer precise, relevant evidence</text>
+
+  <path d="M 953 274.5 H 998" class="flow"/>
+  <rect x="1000" y="222" width="172" height="105" rx="12" class="core"/>
+  <text x="1086" y="251" text-anchor="middle" class="label">Per-company</text>
+  <text x="1086" y="272" text-anchor="middle" class="label">evidence allocation</text>
+  <text x="1086" y="299" text-anchor="middle" class="detail">Both comparison sides</text>
+
+  <!-- Evidence selection and the fixed answer generator. -->
+  <path d="M 1086 327 V 380" class="flow"/>
+  <rect x="968" y="382" width="204" height="86" rx="12" class="core"/>
+  <text x="1070" y="414" text-anchor="middle" class="label">Evidence check</text>
+  <text x="1070" y="439" text-anchor="middle" class="detail">Requested fact supported?</text>
+
+  <path d="M 968 425 H 927" class="flow"/>
+  <text x="947" y="408" text-anchor="middle" class="small">yes</text>
+  <rect x="735" y="382" width="190" height="86" rx="12" class="core"/>
+  <text x="830" y="414" text-anchor="middle" class="label">≤ 5 original chunks</text>
+  <text x="830" y="439" text-anchor="middle" class="detail">No generated evidence</text>
+
+  <path d="M 735 425 H 692" class="flow"/>
+  <rect x="470" y="382" width="220" height="86" rx="12" class="model"/>
+  <text x="580" y="414" text-anchor="middle" class="label">Fixed DeepSeek generator</text>
+  <text x="580" y="439" text-anchor="middle" class="detail">Provided code; unchanged</text>
+
+  <path d="M 470 425 H 402" class="flow"/>
+  <rect x="255" y="397" width="145" height="56" rx="12" class="box"/>
+  <text x="327.5" y="431" text-anchor="middle" class="label">Answer</text>
+
+  <path d="M 1070 468 V 484" fill="none" stroke="#b36c15" stroke-width="2" marker-end="url(#amber-arrow)"/>
+  <text x="1090" y="481" class="small">no</text>
+  <rect x="968" y="486" width="204" height="28" rx="8" class="reject"/>
+  <text x="1070" y="505" text-anchor="middle" class="label">[] → NOT_FOUND</text>
+</svg>
