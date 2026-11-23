@@ -8,7 +8,6 @@ Use Python 3.10 or newer:
 python3 -m venv .venv
 source .venv/bin/activate
 python3 -m pip install -r requirements.txt
-cp .env.example .env
 ```
 
 Set `DEEPSEEK_API_KEY` in `.env`, then run:
@@ -17,11 +16,10 @@ Set `DEEPSEEK_API_KEY` in `.env`, then run:
 python3 hw4.py --data-folder public_test
 ```
 
-This rebuilds the index and writes `results.csv`. To reproduce the experiments or run checks without model calls:
+This rebuilds the index and writes `results.csv`. To reproduce the ablation experiments:
 
 ```bash
 python3 run_ablation.py --output-dir experiments
-python3 check_solution.py --data-folder public_test
 ```
 
 Keep `.env` private.
@@ -75,7 +73,7 @@ Only actual generator responses with identical full inputs are reused. Timings m
 
 ### Validation
 
-All 12 table checks and 40 document checks pass. A clean-clone run produces **60/60 correct public answers and 75/75 automated points** in 5.6 seconds. Five additional paraphrase regression cases also pass. Records are in `fresh_clone_verification.log` and `experiments/audit/`. These public results do not guarantee private-set performance; unfamiliar wording remains a limitation of rule-based parsing.
+All 12 table checks and 40 document checks pass. A clean-clone run produces **60/60 correct public answers and 75/75 automated points** in 5.6 seconds. Five additional paraphrase regression cases also pass. These public results do not guarantee private-set performance; unfamiliar wording remains a limitation of rule-based parsing.
 
 ## Task 6: Reflection
 
