@@ -39,8 +39,7 @@ To reproduce the B0–V7 results below, run `run_ablation.py` from the repositor
 ```bash
 python3 run_ablation.py --data-folder public_test --output-dir experiments
 ```
-
-The script saves each configuration’s results in `experiments/` and the combined table in `experiments/summary.csv`.
+Running `run_ablation.py` generates the per-question results and summary CSV files in `experiments/`.
 
 All configurations use the 60 public questions: 46 answerable and 14 unanswerable. Recall requires all evidence needed by an answerable question. Kept measures answerable questions receiving chunks; rejected measures unanswerable questions returning `[]`. Accuracy covers all questions.
 
@@ -65,7 +64,7 @@ All configurations use the 60 public questions: 46 answerable and 14 unanswerabl
 - **V6:** accuracy stays unchanged, while returned passages fall from 250 to 138. Comparison coverage is explicit and contexts are shorter.
 - **V7:** the generator already refuses the remaining four unsupported disclosures. Earlier rejection preserves accuracy, raises Task 3 from 7.14/10 to 10/10, and avoids four generator calls per uncached run.
 
-Per-question outputs and contexts are saved in `experiments/`; the combined table is `experiments/summary.csv`. Only actual generator responses with identical full inputs are cached. Timings include cache lookups and are not cold-start comparisons. Version fingerprints prevent incompatible results from being combined.
+Only actual generator responses with identical full inputs are reused. Timings may include cache lookups and are not cold-start comparisons.
 
 ### Error analysis
 
