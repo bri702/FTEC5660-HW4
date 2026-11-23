@@ -34,6 +34,14 @@ HTML headings provide the company, reporting year and document type. `table_to_t
 
 ### Ablation study
 
+To reproduce the B0–V7 results below, run `run_ablation.py` from the repository root:
+
+```bash
+python3 run_ablation.py --data-folder public_test --output-dir experiments
+```
+
+The script saves each configuration’s results in `experiments/` and the combined table in `experiments/summary.csv`.
+
 All configurations use the 60 public questions: 46 answerable and 14 unanswerable. Recall requires all evidence needed by an answerable question. Kept measures answerable questions receiving chunks; rejected measures unanswerable questions returning `[]`. Accuracy covers all questions.
 
 **B0** uses BeautifulSoup `get_text()` without table conversion, `RecursiveCharacterTextSplitter(chunk_size=1500, chunk_overlap=150)`, required metadata, and global BM25 top-5 with lowercase whitespace tokens. It has no query parsing and never abstains. Each following row changes one component relative to the previous row. V2's chunker includes contextual headers; V6's allocation policy includes both comparison quotas and the single-subject passage cap.
